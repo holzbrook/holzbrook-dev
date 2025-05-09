@@ -3,9 +3,8 @@
 
 User-agent: *
 # Disallow internal pages
-Disallow: /work/_/
-Disallow: /family/_/
-Disallow: /play/_/
-Disallow: /_/
+Disallow: /_next/
 # Allow all other pages
 Allow: /
+
+Sitemap: https://holzbrook.dev/sitemap-index.xml

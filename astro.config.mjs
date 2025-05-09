@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import netlify from '@astrojs/netlify';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +16,7 @@ export default defineConfig({
     icon({
       iconDir: 'src/lib/ui/icons/local',
     }),
+    sitemap(),
   ],
   vite: {
     clearScreen: false,
