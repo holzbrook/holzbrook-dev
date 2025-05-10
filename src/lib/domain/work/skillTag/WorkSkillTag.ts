@@ -1,4 +1,4 @@
-import type { WorkSkillId } from '../skill/WorkSkill';
+import type { WorkSkillId } from '@lib/domain/work/skill/WorkSkill';
 
 export enum WorkSkillTagId {
   FrontendDevelopment = 'Frontend Development',

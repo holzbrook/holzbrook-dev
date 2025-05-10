@@ -9,7 +9,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@e2e/*": ["e2e/*"]
+      "@e2e/*": ["e2e/*"],
+      "@lib/*": ["src/lib/*"],
+      "@styles/*": ["src/styles/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@content/*": ["src/content/*"]
     },
     "strict": true,
     "noImplicitAny": true

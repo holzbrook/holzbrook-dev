@@ -1,4 +1,4 @@
-import { type AppFeatureFlags } from '../../app/AppFeatureFlags';
+import { type AppFeatureFlags } from '@lib/app/AppFeatureFlags';
 
 export interface SherpaConfig {
   featureFlags?: AppFeatureFlags;

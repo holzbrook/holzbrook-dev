@@ -1,4 +1,4 @@
-import type { FamilyInterestId } from '../interest/FamilyInterest';
+import type { FamilyInterestId } from '@lib/domain/family/interest/FamilyInterest';
 
 export enum FamilyMemberId {
   Andrew = 'andrew',

@@ -1,5 +1,5 @@
-import { WorkCompanyId } from '../company/WorkCompany';
-import { WorkProjectId, type WorkProject } from './WorkProject';
+import { WorkCompanyId } from '@lib/domain/work/company/WorkCompany';
+import { WorkProjectId, type WorkProject } from '@lib/domain/work/project/WorkProject';
 
 export const workProjectsById: Record<WorkProjectId, WorkProject> = {
   [WorkProjectId.FlutterDesktop]: {

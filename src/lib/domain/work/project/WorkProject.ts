@@ -1,4 +1,4 @@
-import type { WorkCompanyId } from '../company/WorkCompany';
+import type { WorkCompanyId } from '@lib/domain/work/company/WorkCompany';
 
 export enum WorkProjectId {
   FlutterDesktop = 'Flutter Desktop',

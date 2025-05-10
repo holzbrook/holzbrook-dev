@@ -1,5 +1,5 @@
-import { WorkSkillId } from '../skill/WorkSkill';
-import { WorkSkillTagId } from './WorkSkillTag';
+import { WorkSkillId } from '@lib/domain/work/skill/WorkSkill';
+import { WorkSkillTagId } from '@lib/domain/work/skillTag/WorkSkillTag';
 
 export const workSkillTags = [
   {

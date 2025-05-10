@@ -1,4 +1,4 @@
-import { WorkCompanyId } from '../company/WorkCompany';
+import { WorkCompanyId } from '@lib/domain/work/company/WorkCompany';
 
 export const workJobs = [
   {

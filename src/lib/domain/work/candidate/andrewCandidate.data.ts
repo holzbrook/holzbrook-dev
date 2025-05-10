@@ -1,10 +1,10 @@
-import { workJobs } from '../job/workJobs.data';
-import { workProficiencies } from '../proficiency/workProficiencies.data';
-import { workProjects } from '../project/workProjects.data';
-import { workSkillsById } from '../skill/workSkillsById.data';
-import { workSkillTags } from '../skillTag/workSkillTags.data';
-import { WorkCandidateId } from './WorkCandidate';
-import type { WorkCandidate } from './WorkCandidate';
+import { workJobs } from '@lib/domain/work/job/workJobs.data';
+import { workProficiencies } from '@lib/domain/work/proficiency/workProficiencies.data';
+import { workProjects } from '@lib/domain/work/project/workProjects.data';
+import { workSkillsById } from '@lib/domain/work/skill/workSkillsById.data';
+import { workSkillTags } from '@lib/domain/work/skillTag/workSkillTags.data';
+import { WorkCandidateId } from '@lib/domain/work/candidate/WorkCandidate';
+import type { WorkCandidate } from '@lib/domain/work/candidate/WorkCandidate';
 
 export const andrewCandidate: WorkCandidate = {
   id: WorkCandidateId.AndrewHolbrook,
