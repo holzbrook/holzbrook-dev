@@ -2,7 +2,6 @@
 import { LandingPage, PageHero, VStack, PrimaryButton, DownloadIcon } from '@/lib/ui';
 
 import { workPageData } from '../../lib/domain/work/_/workPage.data';
-import { WorkPage } from '../../lib/domain/work/_/WorkPage';
 import { WorkPageSection } from '../../lib/domain/work/_/WorkPageSection';
 import WorkJobCard from '@/lib/domain/work/job/WorkJobCard.astro';
 import WorkProjectCard from '@/lib/domain/work/project/WorkProjectCard.astro';
@@ -13,8 +12,10 @@ import WorkSkillTagCard from '@/lib/domain/work/skillTag/WorkSkillTagCard.astro'
 const { companies, projects, expertise, professionalProfile } = workPageData.sections;
 ---
 
-<WorkPage title={workPageData.title}>
+<LandingPage.Container title={workPageData.title} class:list={['bg-gray-50']}>
+  <LandingPage.Header slot="header" />
   <LandingPage.Body
+    slot="content"
     backgroundColor="bg-gray-100"
     class={`
       flex
@@ -168,7 +169,7 @@ const { companies, projects, expertise, professionalProfile } = workPageData.sec
           <WorkPageSection.Title>{projects.title}</WorkPageSection.Title>
           <p class="text-gray-600 mb-6">{projects.description}</p>
           <WorkPageSection.Grid>
-            {workPageData.candidate.projects.map(project => <WorkProjectCard {...project} />)}
+            {workPageData.candidate.projects.map(project => <WorkProjectCard project={project} />)}
           </WorkPageSection.Grid>
         </WorkPageSection.Container>
 
@@ -221,4 +222,4 @@ const { companies, projects, expertise, professionalProfile } = workPageData.sec
     </LandingPage.Section>
     <LandingPage.Footer />
   </LandingPage.Body>
-</WorkPage>
+</LandingPage.Container>

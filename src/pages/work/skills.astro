@@ -114,8 +114,8 @@ const typeColors: Record<TechType, string> = {
 ---
 
 <LandingPage.Container title="Skills & Expertise">
-  <LandingPage.Header />
-  <LandingPage.Body backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
+  <LandingPage.Header slot="header" />
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
     <PageHero
       data-testid="work-skills-hero"
       title="Skills & Expertise"

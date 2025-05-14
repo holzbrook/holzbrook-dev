@@ -1,33 +1,80 @@
 ---
 import { H3, P } from '@/lib/ui';
-import type { WorkCompanyId } from '../company/WorkCompany';
+import type { WorkProject } from './WorkProject';
 
 interface Props {
-  name: string;
-  description: string;
-  tech: string[];
-  companyId: WorkCompanyId;
+  project: WorkProject;
   class?: string;
 }
 
-const { name, description, tech, companyId, class: className } = Astro.props;
+const { project, class: className } = Astro.props;
+const { name, description, tech, companyId, status, timeline, images } = project;
 ---
 
-<div class:list={['bg-white rounded-lg shadow-md p-6 space-y-4', className]}>
+<div
+  class:list={[
+    'bg-white rounded-lg shadow-md p-6 space-y-4 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]',
+    className,
+  ]}
+>
   <div class="flex items-center justify-between">
-    <H3 class="text-xl font-semibold text-gray-900">{name}</H3>
-    <div class="text-sm text-gray-500 font-medium">{companyId}</div>
+    <div class="space-y-1">
+      <H3 class="text-xl font-semibold text-gray-900">{name}</H3>
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-500 font-medium">{companyId}</span>
+        <span
+          class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+          class:list={[
+            status === 'completed' && 'bg-green-100 text-green-800',
+            status === 'ongoing' && 'bg-blue-100 text-blue-800',
+            status === 'archived' && 'bg-gray-100 text-gray-800',
+          ]}
+        >
+          {status}
+        </span>
+      </div>
+    </div>
+    {
+      images[0] && (
+        <img src={images[0].url} alt={images[0].alt} class="w-16 h-16 object-cover rounded-lg" />
+      )
+    }
   </div>
 
   <P class="text-gray-600">{description}</P>
 
+  <div class="flex items-center gap-2 text-sm text-gray-500">
+    <span>{timeline.startDate}</span>
+    {
+      timeline.endDate && (
+        <>
+          <span>→</span>
+          <span>{timeline.endDate}</span>
+        </>
+      )
+    }
+  </div>
+
   <div class="flex flex-wrap gap-2 pt-2">
     {
       tech.map(t => (
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors">
           {t}
         </span>
       ))
     }
+  </div>
+
+  <div class="pt-4 flex justify-end">
+    <a
+      href={`/work/projects/${project.id}`}
+      class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
+    >
+      View Details
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
+        ></path>
+      </svg>
+    </a>
   </div>
 </div>

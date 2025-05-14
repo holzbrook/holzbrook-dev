@@ -30,6 +30,8 @@ const { class: className, backgroundColor, noIndex, title = 'Andrew Hol(z)brook'
     class={className}
     style={backgroundColor ? `background-color: ${backgroundColor};` : undefined}
   >
-    <slot />
+    <slot name="header" />
+    <slot name="breadcrumbs" />
+    <slot name="content" />
   </body>
 </html>

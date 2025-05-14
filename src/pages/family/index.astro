@@ -5,9 +5,9 @@ import { LandingPage, PageHero, VStack } from '@/lib/ui';
 ---
 
 <LandingPage.Container title={familyPageData.title}>
-  <LandingPage.Header />
+  <LandingPage.Header slot="header" />
 
-  <LandingPage.Body backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
     <PageHero
       data-testid="family-hero"
       title={familyPageData.title}

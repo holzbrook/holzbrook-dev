@@ -10,6 +10,5 @@ const { class: className, title } = Astro.props;
 ---
 
 <LandingPage.Container title={title} class:list={['bg-gray-50', className]}>
-  <LandingPage.Header />
   <slot />
 </LandingPage.Container>

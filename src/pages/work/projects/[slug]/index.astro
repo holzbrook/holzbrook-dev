@@ -1,142 +1,42 @@
 ---
-import { LandingPage, PageHero, VStack } from '@/lib/ui';
-import { projectData, type Project } from '../../../../lib/domain/work/project/projects.data';
-import { WorkPage } from '../../../../lib/domain/work/_/WorkPage';
-import { WorkPageSection } from '../../../../lib/domain/work/_/WorkPageSection';
+import WorkProjectDetail from '@/lib/domain/work/project/WorkProjectDetail.astro';
+import { workProjectsById } from '@/lib/domain/work/project/workProjectsById.data';
+import { WorkProjectId } from '@/lib/domain/work/project/WorkProject';
+import { LandingPage } from '@/lib/ui';
+import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
 
-interface Props {
-  slug: string;
-}
+const sherpa = makeHomeSherpa();
 
 export function getStaticPaths() {
-  return Object.keys(projectData.projects).map(slug => ({
-    params: { slug },
-    props: { slug },
+  return Object.values(WorkProjectId).map(id => ({
+    params: { slug: id },
   }));
 }
 
 const { slug } = Astro.params;
-const project: Project = projectData.projects[slug];
+const project = workProjectsById[slug as WorkProjectId];
 
 if (!project) {
   return Astro.redirect('/404');
 }
 ---
 
-<WorkPage>
-  <LandingPage.Body
-    backgroundColor="bg-gray-100"
-    class={`
-      flex
-      flex-col
-      min-h-screen
-    `}
-  >
-    <PageHero
-      data-testid="work-project-detail-hero"
-      title={project.title}
-      subtitle={`${project.role} • ${project.company} • ${project.timeline}`}
-      class="w-full"
-    />
+<LandingPage.Container>
+  <LandingPage.Header
+    navMenuItems={[
+      { href: sherpa.work.index({}), text: 'Work' },
+      { href: sherpa.family.index({}), text: 'Family' },
+      { href: sherpa.play.index({}), text: 'Play' },
+    ]}
+    breadcrumbs={[
+      { label: 'Work', href: sherpa.work.index({}) },
+      { label: 'Projects', href: sherpa.work.projects.index({}) },
+      { label: project.name },
+    ]}
+    slot="header"
+  />
 
-    <LandingPage.Section
-      class={`
-        w-full
-        py-12
-        sm:py-16
-        md:py-20
-        space-y-32
-      `}
-    >
-      <VStack
-        class={`
-          gap-12
-        `}
-      >
-        <WorkPageSection.Container>
-          <WorkPageSection.Title>Technologies</WorkPageSection.Title>
-          <div class="w-full flex flex-col items-center">
-            <div class="flex flex-wrap gap-3 justify-center">
-              {
-                project.tech.map(tech => (
-                  <div class="px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full shadow-sm border border-indigo-100 text-indigo-700 font-medium hover:shadow-md hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 text-sm">
-                    {tech}
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-        </WorkPageSection.Container>
-
-        {
-          project.problem && (
-            <WorkPageSection.Container>
-              <WorkPageSection.Title>Problem</WorkPageSection.Title>
-              <ul class="list-disc pl-6 space-y-2">
-                {project.problem.map(item => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </WorkPageSection.Container>
-          )
-        }
-
-        {
-          project.solution && (
-            <WorkPageSection.Container>
-              <WorkPageSection.Title>Solution</WorkPageSection.Title>
-              <ul class="list-disc pl-6 space-y-2">
-                {project.solution.map(item => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </WorkPageSection.Container>
-          )
-        }
-
-        {
-          project.impact && (
-            <WorkPageSection.Container>
-              <WorkPageSection.Title>Impact</WorkPageSection.Title>
-              <ul class="list-disc pl-6 space-y-2">
-                {project.impact.map(item => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </WorkPageSection.Container>
-          )
-        }
-
-        {
-          project.phases && (
-            <WorkPageSection.Container>
-              <WorkPageSection.Title>Project Phases</WorkPageSection.Title>
-              <div class="space-y-4">
-                {project.phases.map(phase => (
-                  <div class="border-l-4 border-gray-200 dark:border-gray-700 pl-4">
-                    <h3 class="text-xl font-medium mb-2">{phase.name}</h3>
-                    <p>{phase.description}</p>
-                  </div>
-                ))}
-              </div>
-            </WorkPageSection.Container>
-          )
-        }
-
-        {
-          project.notes && (
-            <WorkPageSection.Container>
-              <WorkPageSection.Title>Key Notes</WorkPageSection.Title>
-              <ul class="list-disc pl-6 space-y-2">
-                {project.notes.map(note => (
-                  <li>{note}</li>
-                ))}
-              </ul>
-            </WorkPageSection.Container>
-          )
-        }
-      </VStack>
-    </LandingPage.Section>
-    <LandingPage.Footer />
+  <LandingPage.Body slot="content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <WorkProjectDetail project={project} />
   </LandingPage.Body>
-</WorkPage>
+</LandingPage.Container>

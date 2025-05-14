@@ -1,58 +1,114 @@
 ---
-import { LandingPage, PageHero, VStack, PrimaryButton } from '@/lib/ui';
-import { projectData, type MenuItem } from '../../../lib/domain/work/project/projects.data';
+import { LandingPage } from '@/lib/ui/layouts/LandingPage';
+import { H1, P } from '@/lib/ui';
+import WorkProjectCard from '@/lib/domain/work/project/WorkProjectCard.astro';
+import { workProjects } from '@/lib/domain/work/project/workProjects.data';
+import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
+import type { WorkProject } from '@/lib/domain/work/project/WorkProject';
+import LandingPageHeader from '@/lib/ui/layouts/LandingPage/LandingPageHeader.astro';
 
-interface Props {
-  project: MenuItem;
-}
+const sherpa = makeHomeSherpa();
 
-const title = 'Projects';
-const description = 'A showcase of my work and contributions';
+const allProjects = workProjects;
+const availableCategories = Array.from(new Set(allProjects.map(p => p.category))).sort();
 ---
 
-<LandingPage.Container
-  backgroundColor="bg-gray-100"
-  class={`
-    flex
-    flex-col
-    min-h-screen
-  `}
->
-  <PageHero data-testid="work-projects-hero" title={title} subtitle={description} class="w-full" />
+<LandingPage.Container>
+  <LandingPageHeader
+    slot="header"
+    navMenuItems={[
+      { href: sherpa.work.index({}), text: 'Work' },
+      { href: sherpa.family.index({}), text: 'Family' },
+      { href: sherpa.play.index({}), text: 'Play' },
+    ]}
+    breadcrumbs={[{ label: 'Work', href: sherpa.work.index({}) }, { label: 'Projects' }]}
+  />
 
-  <LandingPage.Body
-    class={`
-      w-full
-      py-12
-      sm:py-16
-      md:py-20
-      space-y-32
-    `}
-  >
-    <VStack class="gap-12">
-      <div class="w-full max-w-4xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {
-            projectData.menu.map((project: MenuItem) => (
-              <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200">
-                <div class="flex flex-col h-full">
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-medium text-indigo-600">{project.company}</span>
-                    <span class="text-sm text-gray-500">{project.timeToCover} min read</span>
-                  </div>
-                  <h3 class="text-xl font-semibold text-gray-900 mb-2">{project.headline}</h3>
-                  <p class="text-gray-600 mb-4 flex-grow">{project.subheadline}</p>
-                  <PrimaryButton>
-                    <a href={`/projects/${project.id}`} class="block w-full text-center">
-                      View Project
-                    </a>
-                  </PrimaryButton>
-                </div>
-              </div>
-            ))
-          }
-        </div>
+  <LandingPage.Body slot="content" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <H1 class="text-4xl font-bold text-gray-900 mb-4">Projects</H1>
+      <P class="text-xl text-gray-600 max-w-3xl mx-auto">
+        A collection of my professional work and personal projects, showcasing my experience in
+        software development and problem-solving.
+      </P>
+    </div>
+
+    <div class="mb-8">
+      <div class="flex flex-wrap gap-4 justify-center" id="filter-buttons">
+        <button
+          class="filter-button active-filter px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
+          data-category="All"
+        >
+          All Projects
+        </button>
+        {
+          availableCategories.map(category => (
+            <button
+              class="filter-button px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors"
+              data-category={category}
+            >
+              {category}
+            </button>
+          ))
+        }
       </div>
-    </VStack>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+      {
+        allProjects.map((project: WorkProject) => (
+          <div data-category={project.category}>
+            <WorkProjectCard project={project} />
+          </div>
+        ))
+      }
+    </div>
   </LandingPage.Body>
 </LandingPage.Container>
+
+<script>
+  // State management
+  let currentCategory = 'All';
+  const projects = document.querySelectorAll('#projects-grid > *');
+
+  // Filter function
+  function filterProjects(category: string) {
+    projects.forEach(project => {
+      const projectCategory = (project as HTMLElement).dataset.category;
+      if (category === 'All' || projectCategory === category) {
+        (project as HTMLElement).style.display = 'block';
+        (project as HTMLElement).style.opacity = '1';
+      } else {
+        (project as HTMLElement).style.display = 'none';
+        (project as HTMLElement).style.opacity = '0';
+      }
+    });
+  }
+
+  // Button click handler
+  const filterButtons = document.getElementById('filter-buttons');
+  if (filterButtons) {
+    filterButtons.addEventListener('click', event => {
+      const target = event.target as HTMLElement;
+      if (!target?.classList?.contains('filter-button')) return;
+
+      // Update active button styles
+      document.querySelectorAll('.filter-button').forEach(btn => {
+        btn.classList.remove('active-filter', 'bg-blue-100', 'text-blue-800');
+        btn.classList.add('bg-gray-100', 'text-gray-800');
+      });
+      target.classList.add('active-filter', 'bg-blue-100', 'text-blue-800');
+      target.classList.remove('bg-gray-100', 'text-gray-800');
+
+      // Update filter
+      currentCategory = target.dataset.category || 'All';
+      filterProjects(currentCategory);
+    });
+  }
+</script>
+
+<style>
+  #projects-grid > * {
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>

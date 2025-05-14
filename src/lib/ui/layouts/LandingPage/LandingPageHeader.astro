@@ -5,6 +5,11 @@ import { LandingPage } from '@/lib/ui';
 
 const sherpa = makeHomeSherpa();
 
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
+
 interface Props {
   class?: string;
   logoLinkHref?: string;
@@ -12,6 +17,7 @@ interface Props {
     href: string;
     text: string;
   }[];
+  breadcrumbs?: Breadcrumb[];
 }
 
 const {
@@ -31,11 +37,15 @@ const {
       text: 'Play',
     },
   ],
+  breadcrumbs = [],
 }: Props = Astro.props;
+
+const headerHeight = breadcrumbs.length > 0 ? 'h-auto' : 'h-24';
+const spacerHeight = breadcrumbs.length > 0 ? 'h-32' : 'h-24';
 ---
 
 <header
-  class={`fixed top-0 left-0 right-0 z-50 bg-orange-300 shadow-md w-full flex justify-between items-center h-24 ${className}`}
+  class={`fixed top-0 left-0 right-0 z-50 bg-orange-300 w-full flex flex-col items-center ${headerHeight} ${className} ${breadcrumbs.length === 0 ? 'shadow-md' : ''}`}
 >
   <div class="my-4 px-4 md:px-0 max-w-screen-md w-full mx-auto flex justify-between items-center">
     <App.LogoLink class="inline p-0 m-0" href={logoLinkHref} />
@@ -47,5 +57,45 @@ const {
       }
     </LandingPage.NavMenu>
   </div>
+  {
+    breadcrumbs.length > 0 && (
+      <div class="w-full bg-orange-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
+          <nav class="max-w-4xl mx-auto mt-2 mb-2 text-sm" aria-label="Breadcrumb">
+            <ol class="flex items-center space-x-2">
+              {breadcrumbs.map((crumb, idx) => (
+                <>
+                  {idx !== 0 && (
+                    <svg
+                      class="w-4 h-4 text-gray-400 mx-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  )}
+                  {idx === breadcrumbs.length - 1 ? (
+                    <span class="ml-2 text-gray-900 font-semibold" aria-current="page">
+                      {crumb.label}
+                    </span>
+                  ) : (
+                    <a href={crumb.href} class="ml-2 text-gray-500 hover:text-gray-700">
+                      {crumb.label}
+                    </a>
+                  )}
+                </>
+              ))}
+            </ol>
+          </nav>
+        </div>
+      </div>
+    )
+  }
 </header>
-<div class="h-24">{' '}</div>
+<div class={`${spacerHeight}`}></div>

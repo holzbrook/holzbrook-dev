@@ -12,8 +12,8 @@ const sortedJobs: WorkJob[] = [...workJobs].sort((a, b) => {
 ---
 
 <LandingPage.Container title="Work Experience">
-  <LandingPage.Header />
-  <LandingPage.Body backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
+  <LandingPage.Header slot="header" />
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
     <PageHero
       data-testid="work-jobs-hero"
       title="Work Experience"

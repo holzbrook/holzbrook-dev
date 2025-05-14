@@ -1,234 +1,253 @@
-// types.ts
+import { WorkProjectId, ProjectCategory } from './WorkProject';
+import { WorkCompanyId } from '../company/WorkCompany';
+import type { WorkProject } from './WorkProject';
 
-// List of projects I may want to showcase.
-// [[Past Experience - MasterControl - QuickNav]]
-// [[Past Experience - MasterControl - EBR Builder]]
-// [[Past Experience - Chatbooks - Cart & Checkout]]
-// [[Past Experience - Chatbooks - React Query Code Generator]]
-// [[Past Experience - Chatbooks - Responsive Flutter (Subscription Config|Checkout|Book Editor)]]
-// [[Past Experience - Chatbooks - Designer Covers]]
-
-interface Project {
-  title: string;
-  role: string;
-  company: string;
-  timeline: string;
-  tech: string[];
-  timeToCover: number;
-  rawDescription: string;
-  problem?: string[];
-  solution?: string[];
-  phases?: ProjectPhase[];
-  impact?: string[];
-  notes?: string[];
-}
-
-interface ProjectPhase {
-  name: string;
-  description: string;
-}
-
-const projects: Record<string, Project> = {
-  'mastercontrol-quicknav': {
-    title: 'MasterControl – QuickNav Tool',
-    // first pass
-    rawDescription: '',
-    role: 'Internal Tooling Developer',
-    company: 'MasterControl',
-    timeline: '2018',
+const projects: Record<WorkProjectId, WorkProject> = {
+  [WorkProjectId.QuickNav]: {
+    id: WorkProjectId.QuickNav,
+    name: 'QuickNav Tool',
+    description:
+      'Built a searchable UI to find navigation elements and related config in a legacy application, enabling faster onboarding and debugging.',
     tech: ['ColdFusion', 'Custom search UI'],
-    timeToCover: 2,
-    problem: [
+    companyId: WorkCompanyId.MasterControl,
+    status: 'completed',
+    category: ProjectCategory.InternalTooling,
+    timeline: {
+      startDate: '2018-01-01',
+      endDate: '2018-12-31',
+      duration: '1 year',
+    },
+    challenges: [
       'Hard to debug layout/navigation config in legacy app',
       'New devs struggled to know where routes were defined',
     ],
-    solution: [
+    solutions: [
       'Built searchable UI to find navigation elements and related config',
       'Enabled faster onboarding and debugging',
     ],
-    impact: [
-      'Reduced time to debug screens',
-      'Used by most of the dev team regularly',
-      'Became part of team onboarding',
-    ],
-    notes: [
-      "My first tool that 'stuck' and became institutionalized",
-      'Proactive fix to an invisible but costly pain point',
-    ],
-  },
-
-  'mastercontrol-ebr-builder-ui': {
-    title: 'MasterControl – EBR Builder UI',
-    rawDescription: '',
-    role: 'Internal Tooling Developer',
-    company: 'MasterControl',
-    timeline: '2018',
-    tech: ['Angular 2', 'ngrx/store', 'RxJS', 'normalizr'],
-    timeToCover: 2,
-    problem: [
-      'Hard to debug layout/navigation config in legacy app',
-      'New devs struggled to know where routes were defined',
-    ],
-  },
-
-  'chatbooks-cart-checkout': {
-    title: 'Chatbooks – Cart & Checkout',
-    rawDescription: '',
-    role: 'Lead Frontend Developer',
-    company: 'Chatbooks',
-    timeline: 'Multiple iterations over 1–2 years',
-    tech: ['Redux', 'Next.js', 'React Query'],
-    timeToCover: 6,
-    phases: [
+    outcomes: [
       {
-        name: 'Initial Redux SPA',
-        description:
-          'First full SPA conversion of the checkout flow using Redux for state management and thunk for side effects.',
+        metric: 'Debug Time Reduction',
+        value: 'Significant',
+        description: 'Reduced time to debug screens',
       },
       {
-        name: 'Next.js Migration',
-        description:
-          'Rebuilt checkout in Next.js to enable SSR and improved performance. Rewrote data layer to use React Query.',
+        metric: 'Team Adoption',
+        value: 'High',
+        description: 'Used by most of the dev team regularly',
       },
     ],
-    impact: [
-      'Improved checkout conversion rate',
-      'Enabled marketing to run A/B tests',
-      'Reduced tech debt in core revenue flow',
+    images: [
+      {
+        url: '/images/projects/quicknav.png',
+        alt: 'QuickNav Tool Interface',
+        caption: 'Search interface for navigation elements',
+      },
     ],
-    notes: [
-      'Mission-critical: any change impacted revenue directly',
-      'Worked closely with product, design, and backend',
-      'Learned a lot about performance bottlenecks',
+    teamMembers: [
+      {
+        name: 'Your Name',
+        role: 'Internal Tooling Developer',
+        contribution: 'Sole developer and designer',
+      },
     ],
+    demoUrl: '/demos/quicknav',
+    caseStudyUrl: '/case-studies/quicknav',
   },
 
-  'chatbooks-designer-covers': {
-    title: 'Chatbooks – Designer Covers',
-    rawDescription: '',
-    role: 'Solo frontend + UX/dev tooling',
-    company: 'Chatbooks',
-    timeline: 'Q1 2023',
+  [WorkProjectId.DesignerCoversMigration]: {
+    id: WorkProjectId.DesignerCoversMigration,
+    name: 'Revamped Designer Covers',
+    description:
+      'Built an indexable, filterable grid of designer covers with dynamic page generation via slugs and config, making the system declarative so marketing could own updates.',
     tech: ['React', 'Next.js', 'Slug-based routing', 'Custom CMS config'],
-    timeToCover: 4,
-    problem: [
+    companyId: WorkCompanyId.Chatbooks,
+    status: 'completed',
+    category: ProjectCategory.Migrations,
+    timeline: {
+      startDate: '2023-01-01',
+      endDate: '2023-03-31',
+      duration: '3 months',
+    },
+    challenges: [
       'Hard-coded seasonal landing pages',
       'Weeks of dev work to launch new content',
       'Poor customer experience discovering covers',
     ],
-    solution: [
+    solutions: [
       'Built an indexable, filterable grid of designer covers',
       'Enabled dynamic page generation via slugs and config',
       'Made system declarative so marketing could own updates',
     ],
-    impact: [
-      'Launches went from weeks to minutes',
-      'Covers were easier to find and select',
-      'SEO visibility improved significantly',
+    outcomes: [
+      {
+        metric: 'Launch Time Reduction',
+        value: 'Weeks to Minutes',
+        description: 'Launches went from weeks to minutes',
+      },
+      {
+        metric: 'SEO Improvement',
+        value: 'Significant',
+        description: 'SEO visibility improved significantly',
+      },
     ],
-    notes: [
-      'Worked closely with brand and marketing',
-      'Used this to push dev-content handoff best practices',
+    images: [
+      {
+        url: '/images/projects/designer-covers.png',
+        alt: 'Designer Covers Grid',
+        caption: 'Filterable grid of designer covers',
+      },
     ],
+    teamMembers: [
+      {
+        name: 'Your Name',
+        role: 'Solo frontend + UX/dev tooling',
+        contribution: 'Lead developer and designer',
+      },
+    ],
+    demoUrl: '/demos/designer-covers',
+    caseStudyUrl: '/case-studies/designer-covers',
   },
 
-  'chatbooks-react-query-generator': {
-    title: 'Chatbooks – React Query Code Generator',
-    rawDescription: '',
-    role: 'Lead Frontend Developer',
-    company: 'Chatbooks',
-    timeline: '2022',
-    tech: ['TypeScript', 'React Query', 'Code Generation'],
-    timeToCover: 3,
-    problem: [
-      'Manual creation of React Query hooks was time-consuming',
-      'Inconsistent patterns across different API endpoints',
-      'Error-prone manual typing of API responses',
-    ],
-    solution: [
-      'Built a code generator that created typed React Query hooks from OpenAPI specs',
-      'Automated the creation of query keys and mutation handlers',
-      'Generated TypeScript types from API schemas',
-    ],
-    impact: [
-      'Reduced time to create new API integrations by 80%',
-      'Eliminated type errors in API integrations',
-      'Standardized query patterns across the codebase',
-    ],
-    notes: [
-      'One of my favorite developer experience improvements',
-      'Showed the power of code generation for reducing boilerplate',
-    ],
-  },
-
-  'chatbooks-responsive-flutter': {
-    title: 'Chatbooks – Responsive Flutter',
-    rawDescription: '',
-    role: 'Lead Frontend Developer',
-    company: 'Chatbooks',
-    timeline: '2021-2022',
+  [WorkProjectId.FlutterDesktop]: {
+    id: WorkProjectId.FlutterDesktop,
+    name: 'Flutter Desktop',
+    description: 'Built responsive Flutter applications for desktop platforms.',
     tech: ['Flutter', 'Dart', 'Responsive Design'],
-    timeToCover: 5,
-    phases: [
+    companyId: WorkCompanyId.Chatbooks,
+    status: 'completed',
+    category: ProjectCategory.MobileApps,
+    timeline: {
+      startDate: '2021-01-01',
+      endDate: '2022-12-31',
+      duration: '2 years',
+    },
+    challenges: [
+      'Adapting mobile-first design to desktop',
+      'Performance optimization for larger screens',
+      'Complex state management across platforms',
+    ],
+    solutions: [
+      'Implemented responsive design patterns',
+      'Optimized rendering for desktop',
+      'Created unified state management',
+    ],
+    outcomes: [
       {
-        name: 'Subscription Configuration',
-        description:
-          'Built responsive subscription management interface with dynamic pricing and plan selection.',
-      },
-      {
-        name: 'Checkout Flow',
-        description:
-          'Created adaptive checkout experience that worked across mobile and desktop devices.',
-      },
-      {
-        name: 'Book Editor',
-        description:
-          'Developed responsive book editing interface with real-time preview and layout adjustments.',
+        metric: 'Performance',
+        value: '60fps',
+        description: 'Consistent frame rate across platforms',
       },
     ],
-    impact: [
-      'Unified mobile and desktop experiences',
-      'Improved conversion rates on larger screens',
-      'Reduced development time for new features',
+    images: [],
+    teamMembers: [
+      {
+        name: 'Your Name',
+        role: 'Lead Frontend Developer',
+        contribution: 'Lead developer',
+      },
     ],
-    notes: [
-      'First major Flutter project at Chatbooks',
-      'Pioneered responsive design patterns in Flutter',
-      'Worked closely with design team on adaptive layouts',
+  },
+
+  [WorkProjectId.NextJsMarketingSite]: {
+    id: WorkProjectId.NextJsMarketingSite,
+    name: 'Greenfield Next.js Marketing Site',
+    description: 'Built a modern marketing site using Next.js.',
+    tech: ['Next.js', 'React', 'TypeScript'],
+    companyId: WorkCompanyId.Chatbooks,
+    status: 'completed',
+    category: ProjectCategory.WebDevelopment,
+    timeline: {
+      startDate: '2022-01-01',
+      endDate: '2022-06-30',
+      duration: '6 months',
+    },
+    challenges: ['SEO optimization', 'Performance requirements', 'Content management'],
+    solutions: ['Implemented SSR', 'Optimized build process', 'Created CMS integration'],
+    outcomes: [
+      {
+        metric: 'Page Speed',
+        value: '90+',
+        description: 'Lighthouse score',
+      },
+    ],
+    images: [],
+    teamMembers: [
+      {
+        name: 'Your Name',
+        role: 'Lead Frontend Developer',
+        contribution: 'Lead developer',
+      },
+    ],
+  },
+
+  [WorkProjectId.ReactReduxWebCart]: {
+    id: WorkProjectId.ReactReduxWebCart,
+    name: 'Web Cart',
+    description: 'Built a modern web cart using React and Redux.',
+    tech: ['React', 'Redux', 'TypeScript'],
+    companyId: WorkCompanyId.Chatbooks,
+    status: 'completed',
+    category: ProjectCategory.WebDevelopment,
+    timeline: {
+      startDate: '2021-01-01',
+      endDate: '2021-12-31',
+      duration: '1 year',
+    },
+    challenges: ['State management', 'Performance optimization', 'User experience'],
+    solutions: ['Implemented Redux', 'Optimized rendering', 'Created intuitive UI'],
+    outcomes: [
+      {
+        metric: 'Conversion Rate',
+        value: '+15%',
+        description: 'Improved checkout conversion',
+      },
+    ],
+    images: [],
+    teamMembers: [
+      {
+        name: 'Your Name',
+        role: 'Lead Frontend Developer',
+        contribution: 'Lead developer',
+      },
+    ],
+  },
+
+  [WorkProjectId.WordPressToReactMigration]: {
+    id: WorkProjectId.WordPressToReactMigration,
+    name: 'WordPress to React with Prismic Migration',
+    description: 'Migrated from WordPress to a modern React stack with Prismic CMS.',
+    tech: ['React', 'Prismic', 'TypeScript'],
+    companyId: WorkCompanyId.Chatbooks,
+    status: 'completed',
+    category: ProjectCategory.Migrations,
+    timeline: {
+      startDate: '2022-01-01',
+      endDate: '2022-12-31',
+      duration: '1 year',
+    },
+    challenges: ['Content migration', 'SEO preservation', 'Performance improvement'],
+    solutions: [
+      'Automated content migration',
+      'Implemented SEO best practices',
+      'Optimized build process',
+    ],
+    outcomes: [
+      {
+        metric: 'Build Time',
+        value: '-70%',
+        description: 'Reduced build time',
+      },
+    ],
+    images: [],
+    teamMembers: [
+      {
+        name: 'Your Name',
+        role: 'Lead Frontend Developer',
+        contribution: 'Lead developer',
+      },
     ],
   },
 };
 
-interface ProjectMenuItem {
-  id: string;
-  company: string;
-  headline: string;
-  subheadline: string;
-  timeToCover: number;
-}
-
-interface ProjectData {
-  menu: ProjectMenuItem[];
-  projects: Record<string, Project>;
-}
-
-const projectData: ProjectData = {
-  menu: Object.entries(projects)
-    .map(([id, project]) => ({
-      id,
-      company: project.company,
-      headline: project.title.split(' – ')[1] || project.title,
-      subheadline: project.problem?.[0] || project.solution?.[0] || '',
-      timeToCover: project.timeToCover,
-    }))
-    .sort((a, b) => b.timeToCover - a.timeToCover),
-  projects: projects,
-};
-
-export {
-  projectData,
-  type ProjectData,
-  type Project,
-  type ProjectMenuItem as MenuItem,
-  type ProjectPhase as Phase,
-};
+export { projects };

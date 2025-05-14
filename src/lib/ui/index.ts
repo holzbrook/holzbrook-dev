@@ -1,5 +1,4 @@
 export { GradientBackground } from './backgrounds';
-export { BreadcrumbItem, BreadcrumbList } from './breadcrumbs';
 export { PrimaryButton, OutlinedButton } from './buttons';
 export { PageHero } from './heroes';
 export { EmailIcon, GitHubIcon, LinkedInIcon, ResumeIcon, DownloadIcon } from './icons';

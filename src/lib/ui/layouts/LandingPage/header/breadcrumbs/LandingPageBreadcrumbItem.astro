@@ -1,0 +1,40 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+  class?: string;
+  'data-testid'?: string;
+  isCurrent?: boolean;
+  isFirst?: boolean;
+}
+
+const {
+  class: className,
+  href,
+  label,
+  'data-testid': dataTestId,
+  isCurrent = false,
+  isFirst = false,
+} = Astro.props;
+---
+
+<li class="flex items-center" data-testid={dataTestId}>
+  {
+    !isFirst && (
+      <svg class="w-4 h-4 text-gray-400 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    )
+  }
+  {
+    isCurrent ? (
+      <span class={`ml-2 text-gray-900 font-semibold ${className}`} aria-current="page">
+        {label}
+      </span>
+    ) : (
+      <a href={href} class={`ml-2 text-gray-500 hover:text-gray-700 ${className}`}>
+        {label}
+      </a>
+    )
+  }
+</li>

@@ -1,0 +1,17 @@
+---
+import { Icon } from 'astro-icon/components';
+
+/**
+ * Print icon component that can be used to indicate print actions.
+ * Supports both filled and outlined styles, custom sizing, and colors.
+ */
+interface Props {
+  class?: string;
+  size?: number;
+  color?: string;
+}
+
+const { class: className, size, color } = Astro.props;
+---
+
+<Icon name="mdi:printer" class={className} size={size} color={color} />

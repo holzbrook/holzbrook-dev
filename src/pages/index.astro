@@ -10,7 +10,7 @@ const sherpa = makeHomeSherpa();
 ---
 
 <LandingPage.Container>
-  <LandingPage.Body backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
     <PageHero data-testid="home-hero" title={homePageData.title} subtitle={homePageData.subtitle} />
 
     <div class="flex justify-center -mt-8">

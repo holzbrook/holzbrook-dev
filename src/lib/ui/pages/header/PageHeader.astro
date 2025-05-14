@@ -7,5 +7,14 @@ const { 'data-testid': dataTestId } = Astro.props;
 ---
 
 <div class="mb-16 text-center" data-testid={dataTestId}>
+  {
+    Astro.slots.breadcrumbs && (
+      <div class="mb-4 flex justify-center">
+        <div class="bg-orange-50 rounded px-4 py-2 inline-block">
+          <slot name="breadcrumbs" />
+        </div>
+      </div>
+    )
+  }
   <slot />
 </div>

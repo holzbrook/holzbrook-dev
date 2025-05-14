@@ -1,0 +1,48 @@
+---
+import { Fragment } from 'astro/jsx-runtime';
+
+interface Props {
+  class?: string;
+  'data-testid'?: string;
+}
+
+const { class: className, 'data-testid': dataTestId } = Astro.props;
+const children: any[] =
+  typeof Astro.slots.default === 'function' ? (Astro.slots.default as () => any[])() : [];
+const count = children.length;
+---
+
+<div class="w-full bg-orange-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+    <nav
+      class={`max-w-4xl mx-auto mt-4 mb-8 text-sm ${className}`}
+      data-testid={dataTestId}
+      aria-label="Breadcrumb"
+    >
+      <ol class="flex items-center space-x-2">
+        {
+          children.map((child: any, idx: number) => {
+            if (typeof child !== 'object') return child;
+            const isFirst = idx === 0;
+            const isCurrent = idx === count - 1;
+            return child.type({
+              ...child.props,
+              isFirst: child.props?.isFirst ?? isFirst,
+              isCurrent: child.props?.isCurrent ?? isCurrent,
+            });
+          })
+        }
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- 
+<div class="w-full bg-orange-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <div class="flex">
+            <slot name="breadcrumbs" />
+          </div>
+        </div>
+      </div>
+-->

@@ -5,53 +5,56 @@ import ResumeContent from './_/ResumeContent.astro';
 ---
 
 <LandingPage.Container title="Resume" backgroundColor="bg-gray-100 print:bg-white">
-  <div class="flex flex-col items-center">
-    <PrintButton class="print:hidden m-4">Print</PrintButton>
+  <LandingPage.Header slot="header" />
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
+    <div class="flex flex-col items-center">
+      <PrintButton class="print:hidden m-4">Print</PrintButton>
 
-    <div class="print:hidden text-center space-y-4">
-      <div>
-        <button
-          class="text-gray-500 text-xs italic underline decoration-dotted cursor-pointer"
-          onclick="document.getElementById('print-instructions').classList.toggle('hidden')"
-        >
-          Print Tips
-        </button>
+      <div class="print:hidden text-center space-y-4">
+        <div>
+          <button
+            class="text-gray-500 text-xs italic underline decoration-dotted cursor-pointer"
+            onclick="document.getElementById('print-instructions').classList.toggle('hidden')"
+          >
+            Print Tips
+          </button>
 
-        <div
-          id="print-instructions"
-          class="hidden mt-2 text-gray-600 text-xs bg-gray-100 p-2 rounded shadow"
-        >
-          Disable headers/footers in print settings.<br />
-          To save as a PDF, select **"Save as PDF"** in the print dialog.<br />
-          <span class="text-gray-400 italic">Print to PDF (Coming Soon!)</span>
+          <div
+            id="print-instructions"
+            class="hidden mt-2 text-gray-600 text-xs bg-gray-100 p-2 rounded shadow"
+          >
+            Disable headers/footers in print settings.<br />
+            To save as a PDF, select **"Save as PDF"** in the print dialog.<br />
+            <span class="text-gray-400 italic">Print to PDF (Coming Soon!)</span>
+          </div>
+        </div>
+
+        <div>
+          <button
+            class="text-gray-500 text-xs italic underline decoration-dotted cursor-pointer"
+            onclick="document.getElementById('commit-instructions').classList.toggle('hidden')"
+          >
+            Commit Instructions
+          </button>
+
+          <div
+            id="commit-instructions"
+            class="hidden mt-2 text-gray-600 text-xs bg-gray-100 p-2 rounded shadow"
+          >
+            <strong class="text-gray-700">After updating resume content:</strong><br />
+            1. Commit changes to this page<br />
+            2. Generate new PDF and save to public/files/andrew-holbrook-resume.pdf<br />
+            3. Commit the new PDF<br />
+            4. Deploy both commits
+          </div>
         </div>
       </div>
 
-      <div>
-        <button
-          class="text-gray-500 text-xs italic underline decoration-dotted cursor-pointer"
-          onclick="document.getElementById('commit-instructions').classList.toggle('hidden')"
-        >
-          Commit Instructions
-        </button>
-
-        <div
-          id="commit-instructions"
-          class="hidden mt-2 text-gray-600 text-xs bg-gray-100 p-2 rounded shadow"
-        >
-          <strong class="text-gray-700">After updating resume content:</strong><br />
-          1. Commit changes to this page<br />
-          2. Generate new PDF and save to public/files/andrew-holbrook-resume.pdf<br />
-          3. Commit the new PDF<br />
-          4. Deploy both commits
-        </div>
-      </div>
+      <LandingPage.Body
+        class="mx-auto max-w-[8.5in] m-2 sm:m-4 text-xs sm:text-sm leading-relaxed font-inter py-2 sm:py-4 px-2 sm:px-8 md:px-12 shadow-md print:shadow-none bg-white"
+      >
+        <ResumeContent />
+      </LandingPage.Body>
     </div>
-
-    <LandingPage.Body
-      class="mx-auto max-w-[8.5in] m-2 sm:m-4 text-xs sm:text-sm leading-relaxed font-inter py-2 sm:py-4 px-2 sm:px-8 md:px-12 shadow-md print:shadow-none bg-white"
-    >
-      <ResumeContent />
-    </LandingPage.Body>
-  </div>
+  </LandingPage.Body>
 </LandingPage.Container>

@@ -6,3 +6,5 @@ export { default as NavMenu } from './LandingPageNavMenu.astro';
 export { default as NavMenuItem } from './LandingPageNavMenuItem.astro';
 export { default as Section } from './LandingPageSection.astro';
 export { default as Footer } from './LandingPageFooter.astro';
+export { default as BreadcrumbItem } from './header/breadcrumbs/LandingPageBreadcrumbItem.astro';
+export { default as BreadcrumbList } from './header/breadcrumbs/LandingPageBreadcrumbList.astro';
