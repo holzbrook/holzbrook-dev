@@ -1,72 +1,74 @@
 ---
-import { workPageData } from '../../../../../lib/domain/work/_/workPage.data';
+import { getWorkPageData } from '@/content/work/workPage.data';
+
+const pageData = await getWorkPageData(); // Await the data
 ---
 
 <header class="mb-5">
   <div class="flex justify-between w-full mb-2">
     <div>
       <h1 class="text-2xl sm:text-3xl font-semibold mb-1.5 text-gray-900">
-        {workPageData.candidate.name}
+        {pageData.candidate.name}
       </h1>
       <h2 class="text-gray-700 text-lg">
-        {workPageData.candidate.title}
+        {pageData.candidate.title}
       </h2>
     </div>
     <div class="text-right">
       <address class="text-xs not-italic mb-2">
         <div class="mb-1">
-          <a href={`mailto:${workPageData.candidate.email}`} class="text-gray-600 hover:underline">
-            {workPageData.candidate.email}
+          <a href={`mailto:${pageData.candidate.email}`} class="text-gray-600 hover:underline">
+            {pageData.candidate.email}
           </a>
         </div>
         <div class="mb-1">
           <a
-            href={`tel:+1${workPageData.candidate.phone.replace(/-/g, '')}`}
+            href={`tel:+1${pageData.candidate.phone.replace(/-/g, '')}`}
             class="text-gray-600 hover:underline"
           >
-            {workPageData.candidate.phone}
+            {pageData.candidate.phone}
           </a>
         </div>
       </address>
       <div class="text-xs space-y-1">
         {
-          workPageData.candidate.website && (
+          pageData.candidate.website && (
             <div>
               <a
-                href={workPageData.candidate.website}
+                href={pageData.candidate.website}
                 class="text-gray-600 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {workPageData.candidate.website}
+                {pageData.candidate.website}
               </a>
             </div>
           )
         }
         {
-          workPageData.candidate.linkedIn && (
+          pageData.candidate.linkedIn && (
             <div>
               <a
-                href={workPageData.candidate.linkedIn}
+                href={pageData.candidate.linkedIn}
                 class="text-gray-600 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {workPageData.candidate.linkedIn}
+                {pageData.candidate.linkedIn}
               </a>
             </div>
           )
         }
         {
-          workPageData.candidate.github && (
+          pageData.candidate.github && (
             <div>
               <a
-                href={workPageData.candidate.github}
+                href={pageData.candidate.github}
                 class="text-gray-600 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {workPageData.candidate.github}
+                {pageData.candidate.github}
               </a>
             </div>
           )
@@ -78,7 +80,7 @@ import { workPageData } from '../../../../../lib/domain/work/_/workPage.data';
 
 <!-- Professional Summary -->
 <section class="mb-5 p-3 rounded-md">
-  <p class="leading-relaxed text-gray-800">{workPageData.candidate.summary}</p>
+  <p class="leading-relaxed text-gray-800">{pageData.candidate.summary}</p>
 </section>
 
 <!-- Work Experience Section -->
@@ -88,7 +90,7 @@ import { workPageData } from '../../../../../lib/domain/work/_/workPage.data';
   </h2>
   <div class="space-y-5">
     {
-      workPageData.candidate.jobs.map(job => (
+      pageData.candidate.jobs.map(job => (
         <article>
           <header class="font-semibold text-base text-gray-900 flex items-baseline">
             <span class="mr-2">{job.company}</span>
@@ -96,7 +98,7 @@ import { workPageData } from '../../../../../lib/domain/work/_/workPage.data';
             <span class="text-gray-700 text-sm">{job.period}</span>
           </header>
           <ul class="list-disc ml-6 mt-1.5 space-y-0.5 text-sm text-gray-700">
-            {job.highlights.map(highlight => (
+            {job.highlights.map((highlight: string) => (
               <li>
                 <span class={highlight.includes(':') ? 'text-gray-900' : 'text-gray-600'}>
                   {highlight}

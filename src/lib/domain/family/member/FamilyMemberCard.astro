@@ -1,7 +1,7 @@
 ---
 import { H1, H2, P, Strong } from '../../../../lib/ui';
-import { familyInterestsById } from '../familyInterestsById.data';
-import { FamilyMemberId, type FamilyMember } from './FamilyMember';
+import { type FamilyMember, FamilyMemberId } from './FamilyMember';
+import { getCollection } from 'astro:content';
 
 interface Props {
   member: FamilyMember;
@@ -13,6 +13,16 @@ const { member, class: className } = Astro.props;
 if (!member) {
   return null;
 }
+
+// Fetch interests and create a map
+const interestEntries = await getCollection('family/interests');
+const familyInterestsById = interestEntries.reduce(
+  (acc, entry) => {
+    acc[entry.data.id] = entry.data;
+    return acc;
+  },
+  {} as Record<string, (typeof interestEntries)[number]['data']>
+);
 
 // Get specific background color based on family member ID
 const emojiBgColor: Record<FamilyMemberId, string> = {
@@ -81,6 +91,7 @@ const emojiBgColor: Record<FamilyMemberId, string> = {
           <div class="flex flex-wrap gap-2">
             {member.interests.map(interestId => {
               const interest = familyInterestsById[interestId];
+              if (!interest) return null;
               return (
                 <Strong
                   data-testid="member-interest"

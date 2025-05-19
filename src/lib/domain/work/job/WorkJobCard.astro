@@ -8,12 +8,33 @@ interface Props {
   description: string;
   highlights?: string[];
   class?: string;
+  id?: string;
+  href?: string;
 }
 
-const { company, title, period, description, highlights = [], class: className } = Astro.props;
+const {
+  company,
+  title,
+  period,
+  description,
+  highlights = [],
+  class: className,
+  id,
+  href,
+} = Astro.props;
+
+const CardWrapper = href ? 'a' : 'div';
 ---
 
-<div data-testid="job-card" class:list={['bg-white rounded-lg shadow-md p-6 space-y-4', className]}>
+<CardWrapper
+  href={href}
+  data-testid="job-card"
+  class:list={[
+    'bg-white rounded-lg shadow-md p-6 space-y-4 block',
+    href && 'hover:shadow-lg transition-shadow duration-200',
+    className,
+  ]}
+>
   <div class="space-y-2">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
       <div class="flex items-center space-x-2">
@@ -30,7 +51,7 @@ const { company, title, period, description, highlights = [], class: className }
     highlights.length > 0 && (
       <div data-testid="job-highlights" class="space-y-2">
         <P class="font-medium text-gray-900 pl-3">Key Achievements:</P>
-        <Ul class="space-y-2 list-disc pl-6 [&]:list-disc">
+        <Ul class="space-y-2 pl-6 [&]:list-disc">
           {highlights.map(highlight => (
             <Li
               data-testid="job-highlight"
@@ -49,4 +70,4 @@ const { company, title, period, description, highlights = [], class: className }
       </div>
     )
   }
-</div>
+</CardWrapper>

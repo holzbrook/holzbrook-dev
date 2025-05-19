@@ -13,6 +13,10 @@ export interface WorkSherpa {
   internalResumePage: LinkResolver;
   resumePdf: () => string;
   projects: WorkProjectSherpa;
+  jobs: {
+    index: LinkResolver;
+    detail: (props: { jobId: string }) => string;
+  };
 }
 
 export function makeWorkSherpa(
@@ -24,5 +28,9 @@ export function makeWorkSherpa(
     internalResumePage: props => makeLinkResolver(`${path}/_internal/resume`, props, config),
     resumePdf: () => '/files/andrew-holbrook-resume.pdf',
     projects: makeWorkProjectSherpa(path, config),
+    jobs: {
+      index: props => makeLinkResolver(`${path}/jobs`, props, config),
+      detail: ({ jobId }) => `${path}/jobs/${jobId}`,
+    },
   };
 }

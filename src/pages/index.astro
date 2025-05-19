@@ -3,10 +3,14 @@ import { Icon } from 'astro-icon/components';
 import { ExploreCard, LandingPage, PageHero } from '@/lib/ui';
 import { HomePageBusinessCard } from '@/lib/domain/homePage/ui';
 import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
-import { homePageData } from '@/lib/domain/homePage/homePage.data';
-import { workPageData } from '@/lib/domain/work/_/workPage.data';
+import { getHomePageData } from '@/content/home/homePage.data';
+import { getPlayPageData } from '@/content/play/playPage.data';
+import { getWorkPageData } from '@/content/work/workPage.data';
+import { getFamilyPageData } from '@/content/family/familyPage.data';
 
 const sherpa = makeHomeSherpa();
+const homePageData = await getHomePageData();
+const workData = await getWorkPageData();
 ---
 
 <LandingPage.Container>
@@ -17,19 +21,19 @@ const sherpa = makeHomeSherpa();
       <HomePageBusinessCard.Container>
         <div class="flex items-center justify-between mb-4">
           <HomePageBusinessCard.FullName>
-            {workPageData.candidate.name}
+            {workData.candidate.name}
           </HomePageBusinessCard.FullName>
           <HomePageBusinessCard.Avatar />
         </div>
 
         <HomePageBusinessCard.JobTitle>
-          {workPageData.candidate.title}
+          {workData.candidate.title}
         </HomePageBusinessCard.JobTitle>
 
         <div class="space-y-3">
-          <HomePageBusinessCard.Link href={`mailto:${workPageData.candidate.email}`}>
+          <HomePageBusinessCard.Link href={`mailto:${workData.candidate.email}`}>
             <Icon name="email" class="w-6 h-6" />
-            {workPageData.candidate.email}
+            {workData.candidate.email}
           </HomePageBusinessCard.Link>
 
           <HomePageBusinessCard.Link
@@ -41,8 +45,8 @@ const sherpa = makeHomeSherpa();
           </HomePageBusinessCard.Link>
 
           {
-            workPageData.candidate.linkedIn && (
-              <HomePageBusinessCard.Link href={workPageData.candidate.linkedIn}>
+            workData.candidate.linkedIn && (
+              <HomePageBusinessCard.Link href={workData.candidate.linkedIn}>
                 <Icon name="linkedin" class="w-6 h-6" />
                 LinkedIn
               </HomePageBusinessCard.Link>
@@ -50,8 +54,8 @@ const sherpa = makeHomeSherpa();
           }
 
           {
-            workPageData.candidate.github && (
-              <HomePageBusinessCard.Link href={workPageData.candidate.github}>
+            workData.candidate.github && (
+              <HomePageBusinessCard.Link href={workData.candidate.github}>
                 <Icon name="github" class="w-6 h-6" />
                 GitHub
               </HomePageBusinessCard.Link>

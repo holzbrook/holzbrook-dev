@@ -1,3 +1,5 @@
+import type { CollectionEntry } from 'astro:content';
+
 export enum WorkSkillId {
   AgileScrum = 'Agile/Scrum',
   Angular = 'Angular 2',
@@ -46,13 +48,7 @@ export enum WorkSkillId {
   Webpack = 'Webpack',
 }
 
-export interface WorkSkill {
-  id: WorkSkillId;
-  name: string;
-  description?: string;
-  recruiterValue: number; // 0-10 rating of how valuable this skill is to recruiters
-  parentSkillId?: WorkSkillId; // Optional reference to a parent skill
-}
+export type WorkSkill = CollectionEntry<'work/skills'>['data'];
 
 const careerSkillProgression = {
   utahValleyUniversity: {

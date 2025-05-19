@@ -47,7 +47,9 @@ const spacerHeight = breadcrumbs.length > 0 ? 'h-32' : 'h-24';
 <header
   class={`fixed top-0 left-0 right-0 z-50 bg-orange-300 w-full flex flex-col items-center ${headerHeight} ${className} ${breadcrumbs.length === 0 ? 'shadow-md' : ''}`}
 >
-  <div class="my-4 px-4 md:px-0 max-w-screen-md w-full mx-auto flex justify-between items-center">
+  <div
+    class="my-4 px-4 sm:px-6 lg:px-8 max-w-screen-md w-full mx-auto flex justify-between items-center"
+  >
     <App.LogoLink class="inline p-0 m-0" href={logoLinkHref} />
     <LandingPage.NavMenu>
       {
@@ -60,7 +62,7 @@ const spacerHeight = breadcrumbs.length > 0 ? 'h-32' : 'h-24';
   {
     breadcrumbs.length > 0 && (
       <div class="w-full bg-orange-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
+        <div class="max-w-screen-md mx-auto px-4 sm:px-6 lg:px-8 py-1">
           <nav class="max-w-4xl mx-auto mt-2 mb-2 text-sm" aria-label="Breadcrumb">
             <ol class="flex items-center space-x-2">
               {breadcrumbs.map((crumb, idx) => (

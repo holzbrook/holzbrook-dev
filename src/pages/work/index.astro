@@ -1,18 +1,19 @@
 ---
 import { LandingPage, PageHero, VStack, PrimaryButton, DownloadIcon } from '@/lib/ui';
-
-import { workPageData } from '../../lib/domain/work/_/workPage.data';
+import { getWorkPageData } from '../../content/work/workPage.data';
 import { WorkPageSection } from '../../lib/domain/work/_/WorkPageSection';
 import WorkJobCard from '@/lib/domain/work/job/WorkJobCard.astro';
 import WorkProjectCard from '@/lib/domain/work/project/WorkProjectCard.astro';
-import { workSkillsById } from '@/lib/domain/work/skill/workSkillsById.data';
+import { getWorkSkillsById } from '@/lib/domain/work/skill/getWorkSkills';
 import WorkSkillCard from '@/lib/domain/work/skill/WorkSkillCard.astro';
 import WorkSkillTagCard from '@/lib/domain/work/skillTag/WorkSkillTagCard.astro';
 
-const { companies, projects, expertise, professionalProfile } = workPageData.sections;
+const pageData = await getWorkPageData();
+const workSkillsById = await getWorkSkillsById();
+const { companies, projects, expertise, professionalProfile } = pageData.sections;
 ---
 
-<LandingPage.Container title={workPageData.title} class:list={['bg-gray-50']}>
+<LandingPage.Container title={pageData.title} class:list={['bg-gray-50']}>
   <LandingPage.Header slot="header" />
   <LandingPage.Body
     slot="content"
@@ -25,8 +26,8 @@ const { companies, projects, expertise, professionalProfile } = workPageData.sec
   >
     <PageHero
       data-testid="work-hero"
-      title={workPageData.title}
-      subtitle={workPageData.subtitle}
+      title={pageData.title}
+      subtitle={pageData.subtitle}
       class="w-full"
     />
 
@@ -160,21 +161,31 @@ const { companies, projects, expertise, professionalProfile } = workPageData.sec
         </WorkPageSection.Container>
 
         <WorkPageSection.Container data-testid="companies-section">
-          <WorkPageSection.Title>{companies.title}</WorkPageSection.Title>
+          <div class="flex justify-between items-center mb-6">
+            <WorkPageSection.Title>{companies.title}</WorkPageSection.Title>
+            <a href="/work/jobs" class="text-blue-600 hover:text-blue-800 font-medium">
+              View all jobs →
+            </a>
+          </div>
           <p class="text-gray-600 mb-6">{companies.description}</p>
-          {workPageData.candidate.jobs.map(job => <WorkJobCard {...job} />)}
+          {pageData.candidate.jobs.map(job => <WorkJobCard {...job} />)}
         </WorkPageSection.Container>
 
         <WorkPageSection.Container data-testid="projects-section">
           <WorkPageSection.Title>{projects.title}</WorkPageSection.Title>
           <p class="text-gray-600 mb-6">{projects.description}</p>
           <WorkPageSection.Grid>
-            {workPageData.candidate.projects.map(project => <WorkProjectCard project={project} />)}
+            {pageData.candidate.projects.map(project => <WorkProjectCard project={project} />)}
           </WorkPageSection.Grid>
         </WorkPageSection.Container>
 
         <WorkPageSection.Container data-testid="expertise-section">
-          <WorkPageSection.Title>{expertise.title}</WorkPageSection.Title>
+          <div class="flex justify-between items-center mb-6">
+            <WorkPageSection.Title>{expertise.title}</WorkPageSection.Title>
+            <a href="/work/skills" class="text-blue-600 hover:text-blue-800 font-medium">
+              View all skills →
+            </a>
+          </div>
           <p class="text-gray-600 mb-6">{expertise.description}</p>
 
           <div class="space-y-12">
@@ -197,7 +208,7 @@ const { companies, projects, expertise, professionalProfile } = workPageData.sec
             <div data-testid="proficiencies-section">
               <h3 class="text-xl font-medium mb-4">{expertise.sections.proficiencies.title}</h3>
               <WorkPageSection.Grid>
-                {workPageData.candidate.proficiencies.map(skill => <WorkSkillCard {...skill} />)}
+                {pageData.candidate.proficiencies.map(skill => <WorkSkillCard {...skill} />)}
               </WorkPageSection.Grid>
             </div>
 
@@ -205,10 +216,10 @@ const { companies, projects, expertise, professionalProfile } = workPageData.sec
               <h3 class="text-xl font-medium mb-4">{expertise.sections.skills.title}</h3>
               <WorkPageSection.Grid>
                 {
-                  workPageData.candidate.skillTags.map(category => (
+                  pageData.candidate.skillTags.map(category => (
                     <WorkSkillTagCard
                       category={category.category}
-                      skills={workPageData.candidate.skills}
+                      skills={pageData.candidate.skills}
                       skillIds={category.skillIds}
                       icon={category.icon}
                     />

@@ -1,26 +1,20 @@
 ---
-import { familyPageData } from '@/lib/domain/family/family.data';
+import { getFamilyPageData } from '../../content/family/familyPage.data';
 import FamilyMemberCard from '@/lib/domain/family/member/FamilyMemberCard.astro';
 import { LandingPage, PageHero, VStack } from '@/lib/ui';
+
+const pageData = await getFamilyPageData();
 ---
 
-<LandingPage.Container title={familyPageData.title}>
+<LandingPage.Container title={pageData.title}>
   <LandingPage.Header slot="header" />
 
   <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
-    <PageHero
-      data-testid="family-hero"
-      title={familyPageData.title}
-      subtitle={familyPageData.subtitle}
-    />
+    <PageHero data-testid="family-hero" title={pageData.title} subtitle={pageData.subtitle} />
 
     <LandingPage.Section>
       <VStack data-testid="family-members-list" class="space-y-6">
-        {
-          familyPageData.familyMembers.map(familyMember => (
-            <FamilyMemberCard member={familyMember} />
-          ))
-        }
+        {pageData.familyMembers.map(familyMember => <FamilyMemberCard member={familyMember} />)}
       </VStack>
     </LandingPage.Section>
 

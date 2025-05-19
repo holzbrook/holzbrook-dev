@@ -1,0 +1,100 @@
+---
+import { LandingPage } from '@/lib/ui/layouts/LandingPage';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+// Generate static paths for all skills
+export async function getStaticPaths() {
+  const skills = await getCollection('work/skills');
+  return skills.map(skill => ({
+    params: { slug: skill.data.id.toLowerCase().replace(/[^\w-]+/g, '-') },
+    props: { skill },
+  }));
+}
+
+interface Props {
+  skill: CollectionEntry<'work/skills'>;
+}
+
+const { skill } = Astro.props;
+const { Content } = await skill.render();
+
+// Find parent skill if it exists
+let parentSkill = null;
+if (skill.data.parentSkillId) {
+  const allSkills = await getCollection('work/skills');
+  const parentSkillEntry = allSkills.find(s => s.data.id === skill.data.parentSkillId);
+  if (parentSkillEntry) {
+    parentSkill = parentSkillEntry;
+  }
+}
+
+// Find child skills
+const allSkillsForChildren = await getCollection('work/skills');
+const childSkills = allSkillsForChildren.filter(s => s.data.parentSkillId === skill.data.id);
+
+// Helper to create slug
+const createSlug = (id: string) => id.toLowerCase().replace(/[^\w-]+/g, '-');
+---
+
+<LandingPage.Container title={`${skill.data.name} - Work Skills | Andrew Holbrook`}>
+  <LandingPage.Header slot="header" />
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+      <div class="mb-8">
+        <a href="/work/skills" class="text-blue-500 hover:text-blue-700">← Back to Skills</a>
+      </div>
+
+      <article class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+        <header class="mb-6 pb-4 border-b">
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-800">{skill.data.name}</h1>
+          {
+            skill.data.description && (
+              <p class="text-xl text-gray-600 mt-2">{skill.data.description}</p>
+            )
+          }
+          {
+            parentSkill && (
+              <p class="mt-2 text-sm text-gray-500">
+                Parent Skill:
+                <a
+                  href={`/work/skills/${createSlug(parentSkill.data.id)}`}
+                  class="text-blue-500 hover:text-blue-700"
+                >
+                  {parentSkill.data.name}
+                </a>
+              </p>
+            )
+          }
+        </header>
+
+        <div class="prose prose-lg max-w-none">
+          <Content />
+        </div>
+
+        {
+          childSkills.length > 0 && (
+            <section class="mt-10 pt-6 border-t">
+              <h2 class="text-2xl font-semibold text-gray-700 mb-4">Child Skills</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {childSkills.map(child => (
+                  <a
+                    href={`/work/skills/${createSlug(child.data.id)}`}
+                    class="block p-4 border rounded-lg hover:bg-gray-50 transition-colors bg-white shadow-sm"
+                  >
+                    <h3 class="font-semibold text-lg text-blue-600">{child.data.name}</h3>
+                    {child.data.description && (
+                      <p class="text-gray-600 mt-1 text-sm line-clamp-2">
+                        {child.data.description}
+                      </p>
+                    )}
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
+      </article>
+    </div>
+  </LandingPage.Body>
+  <LandingPage.Footer slot="footer" />
+</LandingPage.Container>

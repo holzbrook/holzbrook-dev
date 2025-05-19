@@ -12,6 +12,10 @@ export default defineConfig({
   output: 'static',
   outDir: 'dist',
   cacheDir: 'cache',
+  server: {
+    port: 3500,
+    host: true,
+  },
   integrations: [
     icon({
       iconDir: 'src/lib/ui/icons/local',

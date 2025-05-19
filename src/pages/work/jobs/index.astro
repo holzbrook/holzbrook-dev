@@ -1,0 +1,43 @@
+---
+import { type CollectionEntry } from 'astro:content';
+import WorkJobCard from '@/lib/domain/work/job/WorkJobCard.astro';
+import { LandingPage } from '@/lib/ui';
+import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
+import { getJobs } from '@/lib/domain/work/job/getJobs';
+
+const sherpa = makeHomeSherpa();
+const jobsEntries = await getJobs();
+const sortedJobs = jobsEntries.sort((a: CollectionEntry<'jobs'>, b: CollectionEntry<'jobs'>) => {
+  const aYear = parseInt(a.data.period.split(' - ')[1] || a.data.period.split(' - ')[0]);
+  const bYear = parseInt(b.data.period.split(' - ')[1] || b.data.period.split(' - ')[0]);
+  return bYear - aYear;
+});
+---
+
+<LandingPage.Container title="Work Experience">
+  <LandingPage.Header
+    slot="header"
+    breadcrumbs={[{ label: 'Work', href: sherpa.work.index({}) }, { label: 'Jobs' }]}
+  />
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
+    <LandingPage.Section>
+      <div class="max-w-4xl mx-auto w-full">
+        <h1 class="text-3xl font-bold mt-8 mb-2">Work Experience</h1>
+        <p class="text-gray-600 mb-6">A chronological history of my professional experience</p>
+        <div class="mt-12 space-y-8">
+          {
+            sortedJobs.map(job => (
+              <WorkJobCard
+                {...job.data}
+                id={job.id}
+                href={sherpa.work.jobs.detail({ jobId: job.id })}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </LandingPage.Section>
+
+    <LandingPage.Footer />
+  </LandingPage.Body>
+</LandingPage.Container>

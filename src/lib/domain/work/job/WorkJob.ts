@@ -1,10 +1,3 @@
-import type { WorkCompanyId } from '@lib/domain/work/company/WorkCompany';
+import type { CollectionEntry } from 'astro:content';
 
-export interface WorkJob {
-  id: WorkCompanyId;
-  company: string;
-  title: string;
-  period: string;
-  description: string;
-  highlights: string[];
-}
+export type WorkJob = CollectionEntry<'work/jobs'>['data'];

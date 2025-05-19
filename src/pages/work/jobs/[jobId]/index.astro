@@ -1,0 +1,39 @@
+---
+import WorkJobDetail from '@/lib/domain/work/job/WorkJobDetail.astro';
+import { LandingPage } from '@/lib/ui';
+import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
+import { getJobs } from '@/lib/domain/work/job/getJobs';
+
+const sherpa = makeHomeSherpa();
+
+export async function getStaticPaths() {
+  const jobs = await getJobs();
+
+  return jobs.map(job => ({
+    params: { jobId: job.id },
+    props: { job },
+  }));
+}
+
+const { job } = Astro.props;
+---
+
+<LandingPage.Container title={`${job.data.company} - ${job.data.title}`}>
+  <LandingPage.Header
+    navMenuItems={[
+      { href: sherpa.work.index({}), text: 'Work' },
+      { href: sherpa.family.index({}), text: 'Family' },
+      { href: sherpa.play.index({}), text: 'Play' },
+    ]}
+    breadcrumbs={[
+      { label: 'Work', href: sherpa.work.index({}) },
+      { label: 'Jobs', href: sherpa.work.jobs.index({}) },
+      { label: job.data.company },
+    ]}
+    slot="header"
+  />
+
+  <LandingPage.Body slot="content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <WorkJobDetail job={job} />
+  </LandingPage.Body>
+</LandingPage.Container>

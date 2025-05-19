@@ -5,7 +5,25 @@ export enum WorkCompanyId {
   TriVir = 'TriVir LLC',
 }
 
-export interface WorkCompany {
-  id: WorkCompanyId;
-  name: string;
+const companyIdToPathParam: Record<WorkCompanyId, string> = {
+  [WorkCompanyId.Chatbooks]: 'chatbooks',
+  [WorkCompanyId.SlingTV]: 'slingTv',
+  [WorkCompanyId.MasterControl]: 'masterControl',
+  [WorkCompanyId.TriVir]: 'triVir',
+};
+
+/**
+ * Gets a job entry from the content collection by company ID
+ * @param companyId The WorkCompanyId to fetch the job for
+ * @returns A promise that resolves to the job entry or undefined if not found
+ */
+export async function getJobByCompanyId(companyId: WorkCompanyId) {
+  const { getEntry } = await import('astro:content');
+  const jobId = companyIdToPathParam[companyId];
+
+  if (!jobId) {
+    return undefined;
+  }
+
+  return getEntry('jobs', jobId);
 }
