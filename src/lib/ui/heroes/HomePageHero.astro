@@ -6,7 +6,7 @@ interface Props {
   'data-testid'?: string;
 }
 
-const { class: className, title, subtitle, 'data-testid': dataTestId }: Props = Astro.props;
+const { class: className, title, subtitle, 'data-testid': dataTestId } = Astro.props;
 ---
 
 <section
@@ -14,7 +14,7 @@ const { class: className, title, subtitle, 'data-testid': dataTestId }: Props = 
   data-testid={dataTestId}
   class={`
     relative
-    py-16
+    py-24
     text-center
     overflow-hidden
     ${className}
@@ -24,11 +24,7 @@ const { class: className, title, subtitle, 'data-testid': dataTestId }: Props = 
     class={`
       absolute
       inset-0
-      bg-gradient-to-br
-      from-orange-50
-      via-gray-50
-      to-white
-      animate-gradient
+      bg-[#B45309]
     `}
     role="presentation"
   >
@@ -37,10 +33,9 @@ const { class: className, title, subtitle, 'data-testid': dataTestId }: Props = 
     <h1
       role="heading"
       aria-level="1"
-      class="text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight mb-4"
+      class="text-5xl lg:text-6xl font-extrabold text-stone-50 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] leading-tight mb-6 -mt-2 pb-4 border-b-2 border-stone-200/50"
     >
       {title}
     </h1>
-    {subtitle && <p class="text-lg lg:text-xl text-gray-600 mb-6">{subtitle}</p>}
   </div>
 </section>

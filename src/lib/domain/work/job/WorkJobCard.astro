@@ -30,7 +30,7 @@ const CardWrapper = href ? 'a' : 'div';
   href={href}
   data-testid="job-card"
   class:list={[
-    'bg-white rounded-lg shadow-md p-6 space-y-4 block',
+    'bg-white rounded-lg shadow-md p-8 space-y-4 block',
     href && 'hover:shadow-lg transition-shadow duration-200',
     className,
   ]}
@@ -45,7 +45,7 @@ const CardWrapper = href ? 'a' : 'div';
     <P data-testid="job-title" class="text-gray-600 font-medium pl-3">{title}</P>
   </div>
 
-  <P data-testid="job-description" class="text-gray-700 pl-3">{description}</P>
+  <P data-testid="job-description" class="text-gray-600 pl-3">{description}</P>
 
   {
     highlights.length > 0 && (
@@ -56,7 +56,7 @@ const CardWrapper = href ? 'a' : 'div';
             <Li
               data-testid="job-highlight"
               class:list={[
-                'text-gray-700 transition-colors duration-200 hover:text-gray-900',
+                'text-gray-600 transition-colors duration-200 hover:text-gray-900',
                 'marker:text-lg',
                 'marker:font-bold',
                 'marker:mr-2',

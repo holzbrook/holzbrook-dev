@@ -1,5 +1,5 @@
 export { GradientBackground } from './backgrounds';
-export { PrimaryButton, OutlinedButton } from './buttons';
+export { Button, PrimaryButton, SecondaryButton, OutlinedButton } from './buttons';
 export { PageHero } from './heroes';
 export { EmailIcon, GitHubIcon, LinkedInIcon, ResumeIcon, DownloadIcon } from './icons';
 export { Stack, HStack, VStack, Center, Card, LandingPage, ExploreCard } from './layouts';

@@ -1,7 +1,7 @@
 ---
 id: 'andrew-holbrook'
 name: 'Andrew Holbrook'
-title: 'Senior Frontend Engineer'
+title: 'No Stack Engineer'
 email: 'andrew@holzbrook.dev'
 phone: '801.361.0417'
 website: 'https://holzbrook.dev'

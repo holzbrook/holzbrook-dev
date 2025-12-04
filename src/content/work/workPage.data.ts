@@ -23,6 +23,10 @@ export interface WorkPageData extends LandingPage.Data {
         };
       };
     };
+    research: {
+      title: string;
+      description: string;
+    };
     companies: {
       title: string;
       description: string;
@@ -58,7 +62,7 @@ export async function getWorkPageData(): Promise<WorkPageData> {
   return {
     id: 'work',
     title: 'Portfolio & Expertise',
-    subtitle: 'Senior Frontend Engineer | Digital solutions across web and mobile.',
+    subtitle: 'No Stack Engineer | Digital solutions across web and mobile.',
     sections: {
       professionalProfile: {
         title: 'Professional Profile',
@@ -77,6 +81,10 @@ export async function getWorkPageData(): Promise<WorkPageData> {
             description: 'My career philosophy and values',
           },
         },
+      },
+      research: {
+        title: 'Research',
+        description: 'High-level disclosures of computational frameworks and research initiatives, including potentially patentable innovations',
       },
       companies: {
         title: 'Work Experience',

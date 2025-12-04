@@ -9,6 +9,6 @@ interface Props {
 const { class: className, 'data-testid': dataTestId }: Props = Astro.props;
 ---
 
-<p class={`text-lg mb-6 ${className}`} data-testid={dataTestId}>
+<p class={`text-lg text-gray-700 mb-6 ${className}`} data-testid={dataTestId}>
   <slot />
 </p>

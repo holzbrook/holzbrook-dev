@@ -7,6 +7,6 @@ interface Props {
 const { class: className, 'data-testid': dataTestId }: Props = Astro.props;
 ---
 
-<h1 class={`text-4xl font-bold ${className}`} data-testid={dataTestId}>
+<h1 class={`text-4xl font-bold text-gray-900 ${className}`} data-testid={dataTestId}>
   <slot />
 </h1>

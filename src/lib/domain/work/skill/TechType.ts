@@ -68,17 +68,18 @@ export const techTypes: Record<WorkSkillId, TechType> = {
   [WorkSkillId.VersionOne]: TechType.Tool,
   [WorkSkillId.VMWare]: TechType.Infrastructure,
   [WorkSkillId.Webpack]: TechType.BuildTool,
+  [WorkSkillId.Rust]: TechType.Language,
 };
 
 // Color scheme for technology types
 export const typeColors: Record<TechType, string> = {
-  [TechType.BuildTool]: 'bg-amber-50 text-amber-600',
+  [TechType.BuildTool]: 'bg-stone-100 text-stone-700',
   [TechType.CoreTechnology]: 'bg-gray-50 text-gray-600',
   [TechType.CSSFramework]: 'bg-pink-50 text-pink-600',
   [TechType.Database]: 'bg-cyan-50 text-cyan-600',
   [TechType.DataManagement]: 'bg-indigo-50 text-indigo-600',
-  [TechType.Framework]: 'bg-blue-50 text-blue-600',
-  [TechType.GraphicsAPI]: 'bg-rose-50 text-rose-600',
+  [TechType.Framework]: 'bg-stone-100 text-stone-700',
+  [TechType.GraphicsAPI]: 'bg-stone-100 text-stone-700',
   [TechType.Infrastructure]: 'bg-slate-50 text-slate-600',
   [TechType.Language]: 'bg-purple-50 text-purple-600',
   [TechType.Methodology]: 'bg-teal-50 text-teal-600',
@@ -89,5 +90,5 @@ export const typeColors: Record<TechType, string> = {
   [TechType.StateManagement]: 'bg-indigo-50 text-indigo-600',
   [TechType.Tool]: 'bg-zinc-50 text-zinc-600',
   [TechType.UILibrary]: 'bg-pink-50 text-pink-600',
-  [TechType.VersionControl]: 'bg-orange-50 text-orange-600',
+  [TechType.VersionControl]: 'bg-stone-100 text-stone-700',
 };

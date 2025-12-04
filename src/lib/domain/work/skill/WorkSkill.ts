@@ -46,6 +46,7 @@ export enum WorkSkillId {
   VersionOne = 'Version One',
   VMWare = 'VMWare',
   Webpack = 'Webpack',
+  Rust = 'Rust',
 }
 
 export type WorkSkill = CollectionEntry<'work/skills'>['data'];

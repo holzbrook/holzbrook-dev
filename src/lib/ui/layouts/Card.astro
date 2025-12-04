@@ -8,6 +8,6 @@ interface Props {
 const { as: Tag = 'div', class: className, 'data-testid': dataTestId }: Props = Astro.props;
 ---
 
-<Tag class={`p-4 bg-white rounded-xl shadow-lg ${className}`} data-testid={dataTestId}>
+<Tag class={`p-4 bg-white rounded-lg shadow-lg ${className}`} data-testid={dataTestId}>
   <slot />
 </Tag>

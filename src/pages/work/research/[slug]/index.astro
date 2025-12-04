@@ -1,22 +1,22 @@
 ---
-import WorkProjectDetail from '@/lib/domain/work/project/WorkProjectDetail.astro';
-import { workProjectsById } from '@/content/work/projects/projectsById.data';
-import { WorkProjectId } from '@/lib/domain/work/project/WorkProject';
+import WorkResearchDetail from '@/lib/domain/work/research/WorkResearchDetail.astro';
+import { researchById } from '@/content/work/research/researchById.data';
+import { WorkResearchId } from '@/lib/domain/work/research/WorkResearch';
 import { LandingPage } from '@/lib/ui';
 import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
 
 const sherpa = makeHomeSherpa();
 
 export function getStaticPaths() {
-  return Object.values(WorkProjectId).map(id => ({
+  return Object.values(WorkResearchId).map(id => ({
     params: { slug: id },
   }));
 }
 
 const { slug } = Astro.params;
-const project = workProjectsById[slug as WorkProjectId];
+const research = researchById[slug as WorkResearchId];
 
-if (!project) {
+if (!research) {
   return Astro.redirect('/404');
 }
 ---
@@ -30,13 +30,13 @@ if (!project) {
     ]}
     breadcrumbs={[
       { label: 'Work', href: sherpa.work.index({}) },
-      { label: 'Projects', href: sherpa.work.projects.index({}) },
-      { label: project.name },
+      { label: 'Research', href: '/work/research' },
+      { label: research.title },
     ]}
     slot="header"
   />
 
-  <LandingPage.Body slot="content" class="px-4 sm:px-6 lg:px-8 pt-16">
-    <WorkProjectDetail project={project} />
+  <LandingPage.Body slot="content" class="px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+    <WorkResearchDetail research={research} />
   </LandingPage.Body>
 </LandingPage.Container>

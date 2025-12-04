@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { ExploreCard, LandingPage, PageHero } from '@/lib/ui';
+import { ExploreCard, LandingPage } from '@/lib/ui';
+import HomePageHero from '@/lib/ui/heroes/HomePageHero.astro';
 import { HomePageBusinessCard } from '@/lib/domain/homePage/ui';
 import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
 import { getHomePageData } from '@/content/home/homePage.data';
@@ -15,20 +16,16 @@ const workData = await getWorkPageData();
 
 <LandingPage.Container>
   <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
-    <PageHero data-testid="home-hero" title={homePageData.title} subtitle={homePageData.subtitle} />
+    <HomePageHero data-testid="home-hero" title={homePageData.title} />
 
-    <div class="flex justify-center -mt-8">
+    <div class="flex justify-center -mt-16">
       <HomePageBusinessCard.Container>
         <div class="flex items-center justify-between mb-4">
-          <HomePageBusinessCard.FullName>
-            {workData.candidate.name}
-          </HomePageBusinessCard.FullName>
+          <HomePageBusinessCard.JobTitle>
+            {workData.candidate.title}
+          </HomePageBusinessCard.JobTitle>
           <HomePageBusinessCard.Avatar />
         </div>
-
-        <HomePageBusinessCard.JobTitle>
-          {workData.candidate.title}
-        </HomePageBusinessCard.JobTitle>
 
         <div class="space-y-3">
           <HomePageBusinessCard.Link href={`mailto:${workData.candidate.email}`}>
@@ -65,8 +62,29 @@ const workData = await getWorkPageData();
       </HomePageBusinessCard.Container>
     </div>
 
+    {
+      homePageData.subtitle && (
+        <div class="text-center mt-24 mb-8">
+          <p class="text-lg lg:text-xl text-gray-700 max-w-2xl mx-auto px-4">
+            A{' '}
+            <a
+              href="/work/research/semantic-path-fractals"
+              class="text-gray-900 hover:text-gray-600 underline transition-colors"
+            >
+              computational framework
+            </a>{' '}
+            that might reshape how we think about application development.
+          </p>
+        </div>
+      )
+    }
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <hr class="border-stone-300" />
+    </div>
+
     <section class="py-12">
-      <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <ExploreCard.Container
             bgColor={homePageData.sections.work.bgColor}

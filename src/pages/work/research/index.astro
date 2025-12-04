@@ -1,0 +1,34 @@
+---
+import { LandingPage } from '@/lib/ui';
+import WorkResearchCard from '@/lib/domain/work/research/WorkResearchCard.astro';
+import { featuredResearch } from '@/content/work/research/featuredResearch.data';
+import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
+import type { WorkResearch } from '@/lib/domain/work/research/WorkResearch';
+
+const sherpa = makeHomeSherpa();
+
+const allResearch = featuredResearch;
+---
+
+<LandingPage.Container title="Research">
+  <LandingPage.Header
+    slot="header"
+    breadcrumbs={[{ label: 'Work', href: sherpa.work.index({}) }, { label: 'Research' }]}
+  />
+  <LandingPage.Body slot="content" backgroundColor="bg-gray-100" class="flex flex-col min-h-screen">
+    <LandingPage.Section>
+      <div class="max-w-6xl mx-auto w-full">
+        <h1 class="text-4xl font-bold text-gray-900 mt-8 mb-2">Research</h1>
+        <p class="text-gray-600 mb-6">
+          High-level disclosures of computational frameworks and research initiatives, including
+          potentially patentable innovations and novel approaches to problem-solving.
+        </p>
+        <div class="mt-12 space-y-8">
+          {allResearch.map((research: WorkResearch) => <WorkResearchCard research={research} />)}
+        </div>
+      </div>
+    </LandingPage.Section>
+
+    <LandingPage.Footer />
+  </LandingPage.Body>
+</LandingPage.Container>

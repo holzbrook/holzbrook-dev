@@ -6,8 +6,8 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<nav class={className}>
-  <ul class="flex gap-4 text-sm sm:text-base md:text-lg mx-4">
+<nav class={`${className} flex items-center`}>
+  <ul class="flex gap-4 text-sm sm:text-base md:text-lg mx-4 items-center">
     <slot />
   </ul>
 </nav>

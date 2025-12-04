@@ -1,6 +1,6 @@
 ---
 import { LandingPage } from '@/lib/ui/layouts/LandingPage';
-import { H1, P } from '@/lib/ui';
+import { Button, H1, P } from '@/lib/ui';
 import WorkProjectCard from '@/lib/domain/work/project/WorkProjectCard.astro';
 import { workProjects } from '@/content/work/projects/featuredProjects.data';
 import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
@@ -35,20 +35,14 @@ const availableCategories = Array.from(new Set(allProjects.map(p => p.category))
 
     <div class="mb-8">
       <div class="flex flex-wrap gap-4 justify-center" id="filter-buttons">
-        <button
-          class="filter-button active-filter px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
-          data-category="All"
-        >
+        <Button variant="filter" size="md" class="filter-button active-filter" data-category="All">
           All Projects
-        </button>
+        </Button>
         {
           availableCategories.map(category => (
-            <button
-              class="filter-button px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors"
-              data-category={category}
-            >
+            <Button variant="filter" size="md" class="filter-button" data-category={category}>
               {category}
-            </button>
+            </Button>
           ))
         }
       </div>
@@ -94,10 +88,10 @@ const availableCategories = Array.from(new Set(allProjects.map(p => p.category))
 
       // Update active button styles
       document.querySelectorAll('.filter-button').forEach(btn => {
-        btn.classList.remove('active-filter', 'bg-blue-100', 'text-blue-800');
+        btn.classList.remove('active-filter', 'bg-stone-200', 'text-stone-800');
         btn.classList.add('bg-gray-100', 'text-gray-800');
       });
-      target.classList.add('active-filter', 'bg-blue-100', 'text-blue-800');
+      target.classList.add('active-filter', 'bg-stone-200', 'text-stone-800');
       target.classList.remove('bg-gray-100', 'text-gray-800');
 
       // Update filter

@@ -12,8 +12,17 @@ interface Props {
 }
 
 const { size, as, href, target, rel, class: className, 'data-testid': dataTestId } = Astro.props;
-
 ---
-<Button variant="outlined" size={size} as={as} href={href} target={target} rel={rel} class={className} data-testid={dataTestId}>
+
+<Button
+  variant="secondary"
+  size={size}
+  as={as}
+  href={href}
+  target={target}
+  rel={rel}
+  class={className}
+  data-testid={dataTestId}
+>
   <slot />
 </Button>

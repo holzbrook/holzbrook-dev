@@ -11,10 +11,10 @@ interface Props {
 const { class: className, href: path }: Props = Astro.props;
 ---
 
-<li class={className}>
+<li class={`flex items-center ${className}`}>
   <AppLink
     href={currentPath === path ? undefined : path}
-    class={currentPath === path ? 'underline' : 'hover:underline'}
+    class={`text-white ${currentPath === path ? 'underline' : 'hover:underline'}`}
   >
     <slot />
   </AppLink>
