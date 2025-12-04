@@ -7,8 +7,8 @@ import {
 export const researchById: Record<WorkResearchId, WorkResearch> = {
   [WorkResearchId.ComputationalFramework]: {
     id: WorkResearchId.ComputationalFramework,
-    title: 'Semantic Path Fractals',
-    subtitle: 'What if the "two hardest problems" in computer science are actually the same problem, just phrased differently?',
+    title: 'The fractals of the /semantic/path',
+    subtitle: 'What if after all this time, the "two hardest problems" in computer science... are actually the same problem?',
     description:
       'A framework that treats semantic paths as executable computational units, simplifying state management, cache invalidation, and deployment across local and distributed systems through event-sourced, immutable execution.',
     intro: [
@@ -16,7 +16,7 @@ export const researchById: Record<WorkResearchId, WorkResearch> = {
       'This framework addresses the first two by recognizing they\'re the same problem — both fundamentally about organizing and tracking relationships between computational units. Semantic paths provide unified naming; path dependencies enable exact cache invalidation.',
       'As for off-by-one errors? Still working on that one. (At least we got the count right.)',
     ],
-    githubUrl: 'https://github.com/holzbrook/fractal-semantic-paths/tree/main',
+    githubUrl: 'https://github.com/holzbrook/fractal-semantic-paths',
     status: ResearchStatus.Research,
     disclosureDate: '2024-12-03',
     concepts: [

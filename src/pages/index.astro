@@ -5,9 +5,7 @@ import HomePageHero from '@/lib/ui/heroes/HomePageHero.astro';
 import { HomePageBusinessCard } from '@/lib/domain/homePage/ui';
 import { makeHomeSherpa } from '@/lib/domain/homePage/homePage.sherpa';
 import { getHomePageData } from '@/content/home/homePage.data';
-import { getPlayPageData } from '@/content/play/playPage.data';
 import { getWorkPageData } from '@/content/work/workPage.data';
-import { getFamilyPageData } from '@/content/family/familyPage.data';
 
 const sherpa = makeHomeSherpa();
 const homePageData = await getHomePageData();
@@ -65,15 +63,22 @@ const workData = await getWorkPageData();
     {
       homePageData.subtitle && (
         <div class="text-center mt-24 mb-8">
-          <p class="text-lg lg:text-xl text-gray-700 max-w-2xl mx-auto px-4">
-            A{' '}
+          <p class="text-lg lg:text-xl text-gray-700 max-w-2xl mx-auto px-4 leading-relaxed">
+            Currently exploring{' '}
             <a
               href="/work/research/semantic-path-fractals"
               class="text-gray-900 hover:text-gray-600 underline transition-colors"
             >
-              computational framework
+              a computational framework
             </a>{' '}
-            that might reshape how we think about application development.
+            that might reshape how we think about application development.{' '}
+            <a
+              href="/work/research/semantic-path-fractals"
+              class="text-gray-600 hover:text-gray-900 underline transition-colors"
+            >
+              Learn more
+            </a>
+            .
           </p>
         </div>
       )
