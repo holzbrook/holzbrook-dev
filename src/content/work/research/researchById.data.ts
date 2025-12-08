@@ -18,7 +18,7 @@ export const researchById: Record<WorkResearchId, WorkResearch> = {
     ],
     githubUrl: 'https://github.com/holzbrook/fractal-semantic-paths',
     status: ResearchStatus.Research,
-    disclosureDate: '2024-12-03',
+    disclosureDate: '2025-12-03',
     concepts: [
       {
         title: 'Semantic Path Addressing',
@@ -102,7 +102,7 @@ export const researchById: Record<WorkResearchId, WorkResearch> = {
       'Distributed applications that need to scale from local to cloud',
     ],
     developmentHistory:
-      'Development began in May 2024. The framework is implemented in Rust and has undergone extensive experimentation and refinement through multiple architectural iterations.',
+      'Development began in May 2025. The framework is implemented in Rust and has undergone extensive experimentation and refinement through multiple architectural iterations.',
     notes:
       'This disclosure presents high-level architectural concepts of a potentially patentable computational framework. The combination of semantic path addressing, automatic dependency-derived state management, and exact cache invalidation represents a novel approach to building scalable, auditable applications. Detailed implementation algorithms and specific optimization techniques are not disclosed in this public documentation.',
   },
