@@ -7,8 +7,8 @@ import {
 export const researchById: Record<WorkResearchId, WorkResearch> = {
   [WorkResearchId.ComputationalFramework]: {
     id: WorkResearchId.ComputationalFramework,
-    title: 'The fractals of the /semantic/path',
-    subtitle: 'What if after all this time, the "two hardest problems" in computer science... are actually the same problem?',
+    title: 'The two hard things…',
+    subtitle: 'What if after all this time, the "two hard things" in computer science... are actually the same problem?',
     description:
       'A framework that treats semantic paths as executable computational units, simplifying state management, cache invalidation, and deployment across local and distributed systems through event-sourced, immutable execution.',
     intro: [
